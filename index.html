@@ -1,0 +1,39 @@
+<html>
+
+<head>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+
+    <script>
+        AFRAME.registerComponent('clickable', {
+            init() {
+                this.el.addEventListener('click', (event) => {
+                    const aBox = document.createElement('a-box')
+                    const touchPoint = event.detail.intersection.point
+                    aBox.setAttribute('position', touchPoint)
+                    aBox.setAttribute('color', "#4CC3D9")
+                    aBox.setAttribute('scale', '1 1 1')
+                    this.el.sceneEl.appendChild(aBox)
+                    console.log("clicked")
+                    console.log(touchPoint)
+
+                })
+
+            }
+        })</script>
+</head>
+
+<body>
+    <a-scene>
+        <a-box position="-1 0.5 -23" rotation="0 45 0" color="#4CC3D9"></a-box>
+        <a-sphere position="0 1.25 -25" radius="1.25" color="#EF2D5E"></a-sphere>
+        <a-cylinder position="1 0.75 -23" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
+        <a-box id="ground" clickable class="cantap" scale="1000 2 1000" position="0 -0.99 0" color="#000"
+            material="opacity: 0">
+        </a-box>
+        <a-entity camera id="camera" position="0 8 0" raycaster="objects: .cantap" cursor="
+      fuse: false;
+      rayOrigin: mouse;">></a-entity>
+    </a-scene>
+</body>
+
+</html>
